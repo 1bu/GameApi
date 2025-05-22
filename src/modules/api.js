@@ -1,4 +1,6 @@
-const API_KEY = 'b6526c02de6d464abdae2590e7f954d1';
+const API_KEY = process.env.RAWG_API_KEY;
+
+console.log(API_KEY);
 const BASE_URL = 'https://api.rawg.io/api';
 
 async function fetchData(endpoint, params = '', expectedList = true){

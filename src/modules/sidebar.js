@@ -8,7 +8,6 @@ export async function loadSidebar() {
     document.getElementById('sidebar-container').innerHTML = `
         <nav class="sidebar">
             <div><a href="home" data-route="home">Home</a></div>
-            <div><a href="Random-Year" data-route="random-year">Random Year</a></div>
             <div><a href="new-releases" data-route="new-releases">New Releases</a></div>
             <div><a href="top-games" data-route="top-games">Top Popular</a></div>
             <div><a href="platforms" data-route="platforms">Platforms</a></div>

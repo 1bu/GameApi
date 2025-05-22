@@ -1,4 +1,5 @@
 import loadGameDetails from './loadGameDetails';
+import {getPlatformsIcons} from './getPlatformIcons';
 
 export function renderGames(games) {
     const content = document.getElementById('content-container');
@@ -30,7 +31,30 @@ export function renderGames(games) {
     content.appendChild(container);
 }
 
-export function loadPlatforms(platforms){
-    if(!platforms) return `<span><span>`
-    return platforms.map(() => `<span>x</span>`).join('');
+function normalizeConsoleFamily(name) {
+    if (!name) return null;
+    const lower = name.toLowerCase();
+    if (lower.includes('playstation')) return 'playstation';
+    if (lower.includes('xbox')) return 'xbox';
+    if (lower.includes('nintendo')) return 'nintendo';
+    return name; // otras plataformas se consideran únicas
 }
+
+export function loadPlatforms(platforms) {
+    if (!platforms) return '<span></span>';
+
+    const seenFamilies = new Set();
+
+    const unique = platforms.filter(p => {
+        const name = p.platform?.name;
+        const normalized = normalizeConsoleFamily(name);
+        if (seenFamilies.has(normalized)) return false;
+        seenFamilies.add(normalized);
+        return true;
+    });
+
+    return unique
+        .map(p => getPlatformsIcons(p.platform?.name))
+        .join('');
+}
+
